@@ -5,7 +5,7 @@ I use it for Blynk lybrary.
 
 Depending on wiring-pi library (http://wiringpi.com)
 ```
-npm install wiring-pi
+npm install wiringpi-node
 ```
 
 #Example
@@ -13,7 +13,7 @@ npm install wiring-pi
 var Livolo = require('livolo.js');
 
 //Livolo.debugMode = true;
-Livolo.repeats = 150; // It depends on the transmitter power and the distance 
+Livolo.repeats = 150; // It depends on the transmitter power and the distance
 Livolo.open(1); // transmitter pin number
 Livolo.sendButton(6400, 120);
 ```
@@ -23,7 +23,7 @@ Livolo.sendButton(6400, 120);
 sendButton function uses to arguments: remote ID and keycode. Typically, remote IDs are 16 bit unsigned values, but
 not all of them are valid (maybe there are some IDs reserved only for system use or there is something I don't know).
 
-Tested remote IDs: 
+Tested remote IDs:
 
 - read from real remote IDs: 6400; 19303
 - "virtual" remote IDs: 10550; 8500; 7400
