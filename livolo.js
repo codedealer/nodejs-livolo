@@ -1,4 +1,4 @@
-var wpi = require('wiringpi-node');
+var rpio = require('rpio');
 
 var livolo = {
 
@@ -15,8 +15,8 @@ var livolo = {
 
 		this.debugMsg('Pin: ' + this.pinNumber);
 
-		wpi.setup('wpi');
-		wpi.pinMode(this.pinNumber, wpi.OUTPUT);
+		rpio.open(pinNumber, rpio.OUTPUT, rpio.LOW);
+		rpio.usleep(10); // first call has initialization lag
 	},
 
 	// emulate key signal
@@ -51,7 +51,8 @@ var livolo = {
 			}
 		}
 
-		wpi.digitalWrite(this.pinNumber, wpi.LOW);
+		rpio.write(this.pinNumber, rpio.LOW);
+		rpio.close(this.pinNumber);
 	},
 
 	//
@@ -87,33 +88,33 @@ var livolo = {
 
 		switch(txPulse) {
 			case 0: // Start
-				wpi.digitalWrite(this.pinNumber, wpi.LOW);
-				wpi.delayMicroseconds(this.p_start); // 550
+				rpio.write(this.pinNumber, rpio.LOW);
+				rpio.usleep(this.p_start); // 550
 			break;
 
 			case 1: // Start
-				wpi.digitalWrite(this.pinNumber, wpi.HIGH);
-				wpi.delayMicroseconds(this.p_start); // 550
+				rpio.write(this.pinNumber, rpio.HIGH);
+				rpio.usleep(this.p_start); // 550
 			break;
 
 			case 2: // "High Zero"
-				wpi.digitalWrite(this.pinNumber, wpi.LOW);
-				wpi.delayMicroseconds(this.p_short); // 110
+				rpio.write(this.pinNumber, rpio.LOW);
+				rpio.usleep(this.p_short); // 110
 			break;
 
 			case 3: // "High One"
-				wpi.digitalWrite(this.pinNumber, wpi.LOW);
-				wpi.delayMicroseconds(this.p_long); // 303
+				rpio.write(this.pinNumber, rpio.LOW);
+				rpio.usleep(this.p_long); // 303
 			break;
 
 			case 4: // "Low Zero"
-				wpi.digitalWrite(this.pinNumber, wpi.HIGH);
-				wpi.delayMicroseconds(this.p_short); // 110
+				rpio.write(this.pinNumber, rpio.HIGH);
+				rpio.usleep(this.p_short); // 110
 			break;
 
 			case 5:	// "Low One"
-				wpi.digitalWrite(this.pinNumber, wpi.HIGH);
-				wpi.delayMicroseconds(this.p_long); // 290
+				rpio.write(this.pinNumber, rpio.HIGH);
+				rpio.usleep(this.p_long); // 290
 			break;
 		}
 	},
