@@ -1,11 +1,9 @@
 # nodejs-livolo
 Nodejs library for livolo switches.
 
-I use it for Blynk lybrary.
-
-Depending on wiring-pi library (http://wiringpi.com)
+Depending on [rpio](https://github.com/jperkin/node-rpio) to support all major versions of node
 ```
-npm install wiringpi-node
+npm install rpio
 ```
 
 #Example
